@@ -8,7 +8,7 @@ namespace var2{
     int a=20;
 }
 
-using namespace var2;
+using namespace std;
 int main(){
 
     // cout<<a<<endl;
