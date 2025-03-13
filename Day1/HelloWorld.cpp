@@ -22,7 +22,7 @@ int main(){
 
     // std::cout<<"Hello World"<<endl;
     // std::cout<<a;
-    cout<<"HelloWorld"<<endl;
+    // cout<<"HelloWorld"<<endl;
     cout<<"Hellll"<<"\n";
     printf("Muhhhammdd");
     cout<<a;
