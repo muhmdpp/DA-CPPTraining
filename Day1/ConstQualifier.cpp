@@ -3,6 +3,11 @@ using namespace std;
 int main()
 {
 
+    int n{15};
+    int *na=&n;
+    cout<<n<<endl;
+    cout<<*na
+
     int a=10;
     int *p=&a;
     int *q(nullptr);
