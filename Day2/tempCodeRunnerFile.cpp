@@ -1,1 +1,4 @@
-,c*=2
+struct Employee{
+//     int empId;
+//     char *name;
+// };
