@@ -1,0 +1,7 @@
+ok      How to CReate class   ok  
+ok      How to create object  ok
+ok      How to initialize class members
+ok      How to access private members  ok
+ok      Getter & Setter
+ok      How to create String Array.
+

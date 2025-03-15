@@ -1,4 +1,3 @@
-struct Employee{
-//     int empId;
-//     char *name;
-// };
+ // void addDept(string Dept[]){
+    //     dept=Dept;
+    // }

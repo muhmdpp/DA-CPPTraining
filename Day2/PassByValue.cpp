@@ -17,9 +17,9 @@ cout<<"B:"<<b<<endl;
 return 0;
 }
 
-void swap(int a,int b){
+void swap(int *a,int *b){
     int *temp=a;
-    *a=*b;
+    a=b;
     b=temp;
     cout<<"A:"<<a<<endl;
     cout<<"B:"<<b<<endl;
