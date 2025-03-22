@@ -1,0 +1,326 @@
+C++ Program with Encapsulation
+
+#include <iostream>
+using namespace std;
+
+class BankAccount {
+private:
+    double balance;  // Private variable
+
+public:
+    // Setter for balance
+    void setBalance(double amount) {
+        if (amount >= 0)
+            balance = amount;
+        else
+            cout << "Invalid initial balance!" << endl;
+    }
+
+    // Getter for balance
+    double getBalance() {
+        return balance;
+    }
+
+    // Method to deposit money
+    void deposit(double amount) {
+        if (amount > 0)
+            setBalance(balance + amount);
+        else
+            cout << "Invalid deposit amount!" << endl;
+    }
+
+    // Method to withdraw money
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance)
+            setBalance(balance - amount);
+        else
+            cout << "Invalid withdrawal amount or insufficient balance!" << endl;
+    }
+};
+
+int main() {
+    BankAccount myAccount;  // Object creation
+
+    myAccount.setBalance(1000);  // Manually setting initial balance
+
+    myAccount.deposit(500);
+    myAccount.withdraw(200);
+
+    cout << "Current Balance: $" << myAccount.getBalance() << endl;  // Using getter
+
+    return 0;
+}
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+ C++ Program with inheritance
+
+#include <iostream>
+using namespace std;
+
+// Base Class
+class BankAccount {
+private:
+    double balance;  // Private: Not directly accessible
+
+public:
+    void setBalance(double amount) {
+        if (amount >= 0)
+            balance = amount;
+        else
+            cout << "Invalid balance!" << endl;
+    }
+
+    double getBalance() {
+        return balance;
+    }
+
+    void deposit(double amount) {
+        if (amount > 0)
+            balance += amount;
+        else
+            cout << "Invalid deposit amount!" << endl;
+    }
+
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance)
+            balance -= amount;
+        else
+            cout << "Invalid withdrawal!" << endl;
+    }
+};
+
+// Derived Class
+class SavingsAccount : public BankAccount {
+private:
+    double interestRate;
+
+public:
+    void setInterestRate(double rate) {
+        if (rate >= 0)
+            interestRate = rate;
+        else
+            cout << "Invalid interest rate!" << endl;
+    }
+
+    double getInterestRate() {
+        return interestRate;
+    }
+
+    void applyInterest() {
+        double interest = getBalance() * (interestRate / 100);  // ✅ Access balance via getter
+        deposit(interest);  // ✅ Modify balance using base class method
+        cout << "Interest Applied: $" << interest << endl;
+    }
+};
+
+int main() {
+    SavingsAccount mySavings;
+
+    mySavings.setBalance(2000);  // ✅ Using setter
+    mySavings.setInterestRate(5);  // ✅ Setting interest rate
+
+    cout << "Balance before interest: $" << mySavings.getBalance() << endl;
+
+    mySavings.applyInterest();  // ✅ Applying interest
+
+    cout << "Balance after interest: $" << mySavings.getBalance() << endl;
+
+    return 0;
+}
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+ C++ Program with Polymorphism
+
+#include <iostream>
+using namespace std;
+
+// Base Class
+class BankAccount {
+protected:
+    double balance;
+
+public:
+    void setBalance(double amount) {
+        if (amount >= 0)
+            balance = amount;
+        else
+            cout << "Invalid balance!" << endl;
+    }
+
+    double getBalance() {
+        return balance;
+    }
+
+    void deposit(double amount) {
+        if (amount > 0)
+            balance += amount;
+        else
+            cout << "Invalid deposit amount!" << endl;
+    }
+
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance)
+            balance -= amount;
+        else
+            cout << "Invalid withdrawal!" << endl;
+    }
+
+    // Virtual function for polymorphism
+    virtual void applyInterest() {
+        cout << "No interest applied for a regular account." << endl;
+    }
+};
+
+// Derived Class: SavingsAccount
+class SavingsAccount : public BankAccount {
+private:
+    double interestRate;
+
+public:
+    void setInterestRate(double rate) {
+        if (rate >= 0)
+            interestRate = rate;
+        else
+            cout << "Invalid interest rate!" << endl;
+    }
+
+    double getInterestRate() {
+        return interestRate;
+    }
+
+    // Overriding applyInterest
+    void applyInterest() override {
+        double interest = balance * (interestRate / 100);
+        deposit(interest);  // Adding interest to balance
+        cout << "Interest Applied: $" << interest << endl;
+    }
+};
+
+// Derived Class: CurrentAccount (No Interest)
+class CurrentAccount : public BankAccount {
+public:
+    void applyInterest() override {
+        cout << "No interest for Current Accounts." << endl;
+    }
+};
+
+int main() {
+    SavingsAccount savings;
+    CurrentAccount current;
+
+    savings.setBalance(2000);
+    savings.setInterestRate(5);
+
+    current.setBalance(3000);
+
+    // Calling overridden methods directly
+    cout << "Savings Account Balance Before Interest: $" << savings.getBalance() << endl;
+    savings.applyInterest();
+    cout << "Savings Account Balance After Interest: $" << savings.getBalance() << endl;
+
+    cout << "\nCurrent Account Balance: $" << current.getBalance() << endl;
+    current.applyInterest();
+
+    return 0;
+}
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+ C++ Program with Abstraction
+
+
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Abstract Base Class
+class BankAccount {
+private:
+    string accountNumber;
+    double balance;
+
+public:
+    BankAccount(const string &accNum, double initialBalance)
+        : accountNumber(accNum), balance(initialBalance) {}
+
+    void deposit(double amount) {
+        if (amount > 0)
+            balance += amount;
+        else
+            cout << "Invalid deposit amount!" << endl;
+    }
+
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance)
+            balance -= amount;
+        else
+            cout << "Invalid withdrawal amount!" << endl;
+    }
+
+    double getBalance() const {
+        return balance;
+    }
+
+    string getAccountNumber() const {
+        return accountNumber;
+    }
+
+    // Pure virtual function making this class Abstract
+    virtual void applyInterest() = 0;
+};
+
+// Derived Class: SavingsAccount
+class SavingsAccount : public BankAccount {
+private:
+    double interestRate;
+
+public:
+    SavingsAccount(const string &accNum, double initialBalance, double rate)
+        : BankAccount(accNum, initialBalance), interestRate(rate) {}
+
+    void applyInterest() override {
+        double interest = getBalance() * (interestRate / 100);
+        deposit(interest);
+        cout << "Interest Applied: $" << interest << endl;
+    }
+};
+
+// Derived Class: CurrentAccount
+class CurrentAccount : public BankAccount {
+public:
+    CurrentAccount(const string &accNum, double initialBalance)
+        : BankAccount(accNum, initialBalance) {}
+
+    void applyInterest() override {
+        // Current accounts may not have interest
+        cout << "No interest applied for Current Account." << endl;
+    }
+};
+
+int main() {
+    // Creating objects of derived classes
+    SavingsAccount savings("SA-123", 1000.0, 5.0);
+    CurrentAccount current("CA-456", 2000.0);
+
+    // Display initial balances
+    cout << "Savings Account Balance: $" << savings.getBalance() << endl;
+    cout << "Current Account Balance: $" << current.getBalance() << endl;
+
+    // Applying interest
+    savings.applyInterest();
+    current.applyInterest();
+
+    // Display balances after applying interest
+    cout << "Savings Account Balance after interest: $" << savings.getBalance() << endl;
+    cout << "Current Account Balance after interest: $" << current.getBalance() << endl;
+
+    return 0;
+}
+

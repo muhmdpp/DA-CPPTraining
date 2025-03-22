@@ -5,11 +5,10 @@ class BankAccount
 {
 private:
     int bal = 0;
+    string name;
 
 public:
-    void createAccount(){
-        string 
-    }
+    
     void setbal(int amount)
     {
         if (amount >= 100)
